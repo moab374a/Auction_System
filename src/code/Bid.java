@@ -7,6 +7,8 @@ public class Bid {
     private final Person bidder;
 
     public Bid(Person bidder , long price) {
+        checker.checkObject(bidder);
+        checker.checkLong(price);
         this.price = price;
         this.bidder = bidder;
     }

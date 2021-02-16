@@ -2,8 +2,11 @@ package code;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Item {
+
+
     private String name;
     private String description;
     private long minPrice;
@@ -13,6 +16,9 @@ public class Item {
     private Bid highestBid;
 
     public Item(String name, String description, long minPrice) {
+        checker.checkString(name);
+        checker.checkString(description);
+        checker.checkLong(minPrice);
         this.name = name;
         this.description = description;
         this.minPrice = minPrice;
@@ -20,6 +26,8 @@ public class Item {
 
     public void addBid(Person bidder , long price)
     {
+        checker.checkObject( bidder);
+        checker.checkLong(price);
 
     }
 

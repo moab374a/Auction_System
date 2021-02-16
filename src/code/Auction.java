@@ -19,6 +19,8 @@ public abstract class Auction {
     public void addBid(Item bidItem , String nameOfBidder , long price)
     {
 
+        checker.checkLong(price);checker.checkObject(bidItem);checker.checkString(nameOfBidder);
+
     }
 
     public String closeAuction()
@@ -37,6 +39,7 @@ public abstract class Auction {
     public void registerItem(Item item)
     {
 
+        checker.checkObject(item);
     }
     public abstract String generateItemString(Item item);
 

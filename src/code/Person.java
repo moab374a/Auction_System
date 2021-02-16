@@ -4,6 +4,7 @@ public class Person {
     private String name;
 
     public Person(String name) {
+        checker.checkString(name);
         this.name = name;
     }
 
