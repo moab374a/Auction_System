@@ -23,9 +23,6 @@ public class Bid {
 
     @Override
     public String toString() {
-        return "code.Bid{" +
-                "price=" + price +
-                ", bidder=" + bidder +
-                '}';
+        return price+" EUR by "+bidder.getName();
     }
 }
