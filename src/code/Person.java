@@ -14,8 +14,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return "code.Person{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

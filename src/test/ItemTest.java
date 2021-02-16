@@ -115,12 +115,14 @@ public class ItemTest {
         assertTrue("Item.addBid() shouldn't change the highest bid, when bid's price isn't higher than current highest bid!",
                 bid.getBidder() == person2 && bid.getPrice() == 6);
 
+
         item.addBid(personNotHighestPrice, 6);
         assertEquals("Item.addBid() shouldn't create a new bid, if the price isn't higher than current highest bid!",
                 2, item.getAllBids().size());
         bid = item.getHighestBid();
         assertTrue("Item.addBid() shouldn't change the highest bid, when bid's price isn't higher than current highest bid!",
                 bid.getBidder() == person2 && bid.getPrice() == 6);
+
 
         List<Bid> allBids = item.getAllBids();
         assertEquals("Item.getAllBids() should return a list containing all bids which were the highestBid!",
