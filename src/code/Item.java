@@ -11,14 +11,15 @@ public class Item {
     private String description;
     private long minPrice;
 
+
     private List<Bid> allBids = new ArrayList<>();
 
     private Bid highestBid;
 
     public Item(String name, String description, long minPrice) {
-        checker.checkString(name);
-        checker.checkString(description);
-        checker.checkLong(minPrice);
+
+        checker.checkString(name);checker.checkString(description);checker.checkLong(minPrice);
+
         this.name = name;
         this.description = description;
         this.minPrice = minPrice;
@@ -26,14 +27,32 @@ public class Item {
 
     public void addBid(Person bidder , long price)
     {
-        checker.checkObject( bidder);
-        checker.checkLong(price);
+        checker.checkObject( bidder);checker.checkLong(price);
 
-/*        Bid bid = new Bid(bidder , price);
-        allBids.add(bid);*/
+        int value = (int) (price - this.minPrice);
+        if ( value == 0 && allBids.isEmpty()){
+            Bid bid = new Bid(bidder , price);
+            allBids.add(bid);
+            highestBid = bid;
+            minPrice=price;
+
+        }
+        else if (value >0 ) {
+            Bid bid = new Bid(bidder , price);
+            allBids.add(bid);
+            highestBid = bid;
+            minPrice=price;
+        }
+
+
 
 
     }
+
+
+
+
+
 
     public List<Bid> getAllBids() {
         return allBids;
@@ -48,7 +67,7 @@ public class Item {
     }
 
     public Bid getHighestBid() {
-        return highestBid;
+        return this.highestBid;
     }
 
     @Override
