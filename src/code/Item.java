@@ -29,19 +29,18 @@ public class Item {
     {
         checker.checkObject( bidder);checker.checkLong(price);
 
-        int value = (int) (price - this.minPrice);
-        if ( value == 0 && allBids.isEmpty()){
-            Bid bid = new Bid(bidder , price);
-            allBids.add(bid);
-            highestBid = bid;
-            minPrice=price;
+        Bid bid = new Bid(bidder , price);
+        if ( price >= this.minPrice && allBids.isEmpty()){
+
+            this.allBids.add(bid);
+            this.highestBid = bid;
+            this.minPrice=price;
 
         }
-        else if (value >0 ) {
-            Bid bid = new Bid(bidder , price);
-            allBids.add(bid);
-            highestBid = bid;
-            minPrice=price;
+        else if (price > minPrice ) {
+            this.allBids.add(bid);
+            this.highestBid = bid;
+            this.minPrice=price;
         }
 
 
