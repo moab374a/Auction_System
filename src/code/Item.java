@@ -29,6 +29,10 @@ public class Item {
         checker.checkObject( bidder);
         checker.checkLong(price);
 
+/*        Bid bid = new Bid(bidder , price);
+        allBids.add(bid);*/
+
+
     }
 
     public List<Bid> getAllBids() {
@@ -49,12 +53,6 @@ public class Item {
 
     @Override
     public String toString() {
-        return "code.Item{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", minPrice=" + minPrice +
-                ", allBids=" + allBids +
-                ", highestBid=" + highestBid +
-                '}';
+        return name +": " + description + " (minimum bidding price: " + minPrice  + " EUR)";
     }
 }
