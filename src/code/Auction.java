@@ -79,6 +79,17 @@ public abstract class Auction {
     {
         checker.checkObject(item);
         this.checkClosed();
+
+        if(allItems.contains(item)) throw  new IllegalArgumentException();
+
+        for (Item currentItem: allItems) {
+            if (currentItem.getName().equals(item.getName()))
+            {
+                throw new IllegalArgumentException();
+            }
+
+        }
+
         allItems.add(item);
     }
     public abstract String generateItemString(Item item);
