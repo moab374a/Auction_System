@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 public abstract class Auction {
 
-    private boolean closed=false;
+    private boolean closed;
 
     private List<Item> allItems;
 
@@ -15,18 +15,21 @@ public abstract class Auction {
     public Auction() {
         allItems = new ArrayList<>();
         bidders = new ArrayList<>();
+        closed = false;
 
     }
 
     public void addBid(Item bidItem , String nameOfBidder , long price)
     {
-        checker.checkLong(price);checker.checkObject(bidItem);checker.checkString(nameOfBidder);
+        this.checkClosed();
+        checker.checkLong(price);
+        checker.checkObject(bidItem);
+        checker.checkString(nameOfBidder);
 
-        if(this.closed) throw new IllegalStateException();
         if (!checkItem(bidItem.getName())) throw new NoSuchElementException();
+
         bidders.add(new Person(nameOfBidder));
         allItems.add(bidItem);
-
 
     }
 
@@ -40,10 +43,15 @@ public abstract class Auction {
         return false;
     }
 
+    private void checkClosed(){
+        if (this.closed) throw new IllegalStateException();
+    }
+
     public String closeAuction()
     {
-        if (closed) throw new IllegalStateException();
-        return generateItemListString();
+        checkClosed();
+        this.closed = true;
+        return this.generateItemListString();
     }
 
     public String generateAllBidsString(Item item){
@@ -61,18 +69,16 @@ public abstract class Auction {
     public String generateItemListString(){
         StringBuilder builder= new StringBuilder();
 
-        builder.append("");
         for ( Item item:allItems) {
             builder.append(generateItemString(item)+"\n");
         }
-
         return builder.toString();
     }
 
     public void registerItem(Item item)
     {
         checker.checkObject(item);
-        if (checkItem(item.getName())) throw new IllegalArgumentException();
+        this.checkClosed();
         allItems.add(item);
     }
     public abstract String generateItemString(Item item);
