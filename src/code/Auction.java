@@ -59,7 +59,14 @@ public abstract class Auction {
     }
 
     public String generateItemListString(){
-        return " ";
+        StringBuilder builder= new StringBuilder();
+
+        builder.append("");
+        for ( Item item:allItems) {
+            builder.append(generateItemString(item)+"\n");
+        }
+
+        return builder.toString();
     }
 
     public void registerItem(Item item)

@@ -42,14 +42,7 @@ public class Item {
             this.highestBid = bid;
             this.minPrice=price;
         }
-
-
-
-
     }
-
-
-
 
 
 
@@ -67,6 +60,10 @@ public class Item {
 
     public Bid getHighestBid() {
         return this.highestBid;
+    }
+
+    public long getMinPrice() {
+        return minPrice;
     }
 
     @Override
