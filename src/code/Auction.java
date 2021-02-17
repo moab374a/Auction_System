@@ -19,6 +19,22 @@ public abstract class Auction {
 
     }
 
+
+    private Item findItem(String itemName) {
+        return allItems
+                .stream()
+                .filter(item1 -> item1.getName().equals(itemName))
+                .findAny().get();
+    }
+
+
+    private Person findBidderOrNew(String name){
+        return bidders.stream()
+                .filter(person -> person.getName().equals(name))
+                .findAny()
+                .orElse(new Person(name));
+    }
+
     public void addBid(Item bidItem , String nameOfBidder , long price)
     {
         this.checkClosed();
@@ -28,10 +44,49 @@ public abstract class Auction {
 
         if (!checkItem(bidItem.getName())) throw new NoSuchElementException();
 
-        bidders.add(new Person(nameOfBidder));
-        allItems.add(bidItem);
+        Person bidder = this.findBidderOrNew(nameOfBidder);
+
+        Item item = this.findItem(bidItem.getName());
+        if (!bidders.contains(bidder)) {
+            bidders.add(bidder);
+        }
+        item.addBid(bidder, price);
 
     }
+
+
+    public String generateAllBidsString(Item item){
+        checker.checkObject(item);
+        StringBuilder names= new StringBuilder();
+        names.append("All bids:");
+
+        for (Bid pointer : item.getAllBids()) {
+            names.append("\n").append(pointer.toString());
+        }
+
+        return names.toString();
+    }
+
+    public String generateItemListString(){
+        StringBuilder builder= new StringBuilder();
+
+        for ( Item item:allItems) {
+            builder.append(generateItemString(item)+"\n");
+        }
+        return builder.toString();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public boolean checkItem(String name){
 
@@ -54,26 +109,6 @@ public abstract class Auction {
         return this.generateItemListString();
     }
 
-    public String generateAllBidsString(Item item){
-        checker.checkObject(item);
-        StringBuilder names= new StringBuilder();
-        names.append("All bids:");
-
-        for (Bid pointer : item.getAllBids()) {
-            names.append("\n").append(pointer.toString());
-        }
-
-        return names.toString();
-    }
-
-    public String generateItemListString(){
-        StringBuilder builder= new StringBuilder();
-
-        for ( Item item:allItems) {
-            builder.append(generateItemString(item)+"\n");
-        }
-        return builder.toString();
-    }
 
     public void registerItem(Item item)
     {
